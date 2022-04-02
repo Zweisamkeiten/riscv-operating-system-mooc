@@ -2,10 +2,13 @@ include ../../common.mk
 
 SRCS_ASM = \
 	start.S \
-	uart.S \
-	kernel.S
+
+SRCS_C = \
+	kernel.c \
+	uart.c \
 
 OBJS = $(SRCS_ASM:.S=.o)
+OBJS += $(SRCS_C:.c=.o)
 
 .DEFAULT_GOAL := all
 all: os.elf
@@ -14,6 +17,9 @@ all: os.elf
 os.elf: ${OBJS}
 	${CC} ${CFLAGS} -Ttext=0x80000000 -o os.elf $^
 	${OBJCOPY} -O binary os.elf os.bin
+
+%.o : %.c
+	${CC} ${CFLAGS} -c -o $@ $<
 
 %.o : %.S
 	${CC} ${CFLAGS} -c -o $@ $<
