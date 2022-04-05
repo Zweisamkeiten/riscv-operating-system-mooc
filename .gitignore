@@ -3,3 +3,5 @@
 *.elf
 tools/*
 
+
+code/os/02-memanagement/tags

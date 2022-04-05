@@ -19,4 +19,7 @@ extern void panic(char *s);
 extern void *page_alloc(int npages);
 extern void page_free(void *p);
 
+extern void *malloc(size_t size);
+extern void free(void *ptr);
+
 #endif /* __OS_H__ */

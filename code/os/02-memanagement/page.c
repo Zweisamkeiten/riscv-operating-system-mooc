@@ -28,6 +28,7 @@ static uint32_t _num_pages = 0;
 
 #define PAGE_TAKEN (uint8_t)(1 << 0)
 #define PAGE_LAST  (uint8_t)(1 << 1)
+#define pageNum(x) ((x) / ((PAGE_SIZE) + 1)) + 1
 
 /*
  * Page Descriptor 
@@ -173,6 +174,51 @@ void page_free(void *p)
 	}
 }
 
+void *malloc(size_t size)
+{
+	int npages = pageNum(size);
+	int found = 0;
+	struct Page *page_i = (struct Page *)HEAP_START;
+	for (int i = 0; i < (_num_pages - npages); i++)
+	{
+		if (_is_free(page_i))
+		{
+			found = 1;
+
+			struct Page *page_j = page_i;
+			for (int j = i; j < (i + npages); j++)
+			{
+				if (!_is_free(page_j))
+				{
+					found = 0;
+					break;
+				}
+				page_j++;
+			}
+
+			if (found)
+			{
+				struct Page *page_k = page_i;
+				for (int k = i; k < (i + npages); k++)
+				{
+					_set_flag(page_k, PAGE_TAKEN);
+					page_k++;
+				}
+				page_k--;
+				_set_flag(page_k, PAGE_LAST);
+				return (void *)(_alloc_start + i * PAGE_SIZE);
+			}
+		}
+		page_i++;
+	}
+	return NULL;
+}
+
+void free(void *ptr)
+{
+	page_free(ptr);
+}
+
 void page_test()
 {
 	void *p = page_alloc(2);
@@ -185,5 +231,12 @@ void page_test()
 
 	void *p3 = page_alloc(4);
 	printf("p3 = 0x%x\n", p3);
+
+	void *p4 = malloc(4097);
+	printf("p4 = 0x%x\n", p4);
+
+	void *p5 = malloc(512);
+	printf("p5 = 0x%x\n", p5);
+	page_free(p5);
 }
 
