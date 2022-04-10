@@ -7,6 +7,7 @@ extern void switch_to(struct context *next);
 #define STACK_SIZE 1024
 uint8_t task_stack[MAX_TASKS][STACK_SIZE];
 struct context ctx_tasks[MAX_TASKS];
+struct task tasks[MAX_TASKS];
 
 /*
  * _top is used to mark the max available position of ctx_tasks
@@ -35,9 +36,24 @@ void schedule()
 		return;
 	}
 
-	_current = (_current + 1) % _top;
-	struct context *next = &(ctx_tasks[_current]);
-	switch_to(next);
+	if (_current == -1) {
+		_current = (_current + 1) % _top;
+		struct context *next = &(ctx_tasks[_current]);
+		switch_to(next);
+	}
+	else {
+		int next_task = (_current + 1) % _top;
+
+		while (tasks[next_task].state == 's') {
+			_current = (_current + 1) % _top;
+			next_task = (_current + 1) % _top;
+		}
+		if (tasks[next_task].priority > tasks[_current].priority) 
+			_current = -1;
+		_current = (_current + 1) % _top;
+		struct context *next = &(ctx_tasks[_current]);
+		switch_to(next);
+	}
 }
 
 /*
@@ -48,11 +64,32 @@ void schedule()
  * 	0: success
  * 	-1: if error occured
  */
-int task_create(void (*start_routin)(void))
+int task_create(void (*task)(void* param), void *param, uint8_t priority)
 {
 	if (_top < MAX_TASKS) {
-		ctx_tasks[_top].sp = (reg_t) &task_stack[_top][STACK_SIZE - 1];
-		ctx_tasks[_top].ra = (reg_t) start_routin;
+
+		if (_top == 0) {
+			ctx_tasks[_top].sp = (reg_t) &task_stack[_top][STACK_SIZE - 1];
+			ctx_tasks[_top].ra = (reg_t) task;
+			tasks[_top].priority = priority;
+			tasks[_top].state = 'r';
+		}
+		else {
+			int i;
+			for (i = _top - 1; i >= 0; i--) {
+
+				if (tasks[i].priority <= priority) break;
+
+				ctx_tasks[i+1].sp = ctx_tasks[i].sp;
+				ctx_tasks[i+1].ra = ctx_tasks[i].ra;
+				tasks[i+1].priority = tasks[i].priority;
+			}
+			ctx_tasks[i+1].sp = (reg_t) &task_stack[_top][STACK_SIZE - 1];
+			ctx_tasks[i+1].ra = (reg_t) task;
+			tasks[i+1].priority = priority;
+			tasks[i+1].state = 'r';
+		}
+
 		_top++;
 		return 0;
 	} else {
@@ -78,4 +115,12 @@ void task_delay(volatile int count)
 	count *= 50000;
 	while (count--);
 }
+
+void task_exit(void)
+{
+	tasks[_current].state = 's';
+	schedule();
+	return;
+}
+
 

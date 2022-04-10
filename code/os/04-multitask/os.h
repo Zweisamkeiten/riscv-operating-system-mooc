@@ -55,8 +55,14 @@ struct context {
 	reg_t t6;
 };
 
-extern int  task_create(void (*task)(void));
+struct task {
+	uint8_t priority;
+	char state;
+};
+
+extern int  task_create(void (*task)(void* param), void *param, uint8_t priority);
 extern void task_delay(volatile int count);
 extern void task_yield();
+extern void task_exit(void);
 
 #endif /* __OS_H__ */
