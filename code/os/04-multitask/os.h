@@ -60,9 +60,10 @@ struct task {
 	char state;
 };
 
+extern void task_os();
+extern void task_go(int n);
 extern int  task_create(void (*task)(void* param), void *param, uint8_t priority);
 extern void task_delay(volatile int count);
-extern void task_yield();
 extern void task_exit(void);
 
 #endif /* __OS_H__ */

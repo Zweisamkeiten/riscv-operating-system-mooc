@@ -6,15 +6,17 @@ extern void switch_to(struct context *next);
 #define MAX_TASKS 10
 #define STACK_SIZE 1024
 uint8_t task_stack[MAX_TASKS][STACK_SIZE];
+struct context ctx_os;
 struct context ctx_tasks[MAX_TASKS];
+struct context *ctx_now;
 struct task tasks[MAX_TASKS];
 
 /*
  * _top is used to mark the max available position of ctx_tasks
  * _current is used to point to the context of current task
  */
-static int _top = 0;
-static int _current = -1;
+int _top = 0;
+int _current = -1;
 
 static void w_mscratch(reg_t x)
 {
@@ -23,7 +25,7 @@ static void w_mscratch(reg_t x)
 
 void sched_init()
 {
-	w_mscratch(0);
+	w_mscratch((reg_t) &ctx_os); // 初始化mscratch在ctx_os的原因是它不是一个任务，因此如果不保存内容在里面，跳转ctx_os会无意义
 }
 
 /*
@@ -51,9 +53,22 @@ void schedule()
 		if (tasks[next_task].priority > tasks[_current].priority) 
 			_current = -1;
 		_current = (_current + 1) % _top;
-		struct context *next = &(ctx_tasks[_current]);
-		switch_to(next);
+		task_go(_current);
 	}
+}
+
+/* DESCRIPTION
+ * switch back to os
+ */
+void task_os() {
+	ctx_now = &ctx_os;
+	switch_to(ctx_now);
+}
+
+// switch to task[i]
+void task_go(int i) {
+	ctx_now = &ctx_tasks[i];
+	switch_to(ctx_now);
 }
 
 /*
@@ -98,16 +113,6 @@ int task_create(void (*task)(void* param), void *param, uint8_t priority)
 }
 
 /*
- * DESCRIPTION
- * 	task_yield()  causes the calling task to relinquish the CPU and a new 
- * 	task gets to run.
- */
-void task_yield()
-{
-	schedule();
-}
-
-/*
  * a very rough implementaion, just to consume the cpu
  */
 void task_delay(volatile int count)
@@ -119,8 +124,7 @@ void task_delay(volatile int count)
 void task_exit(void)
 {
 	tasks[_current].state = 's';
-	schedule();
-	return;
+	task_os();
 }
 
 
