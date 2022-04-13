@@ -50,6 +50,7 @@ static inline void w_mstatus(reg_t x)
  * machine exception program counter, holds the
  * instruction address to which a return from
  * exception will go.
+ * trap 发生, hart 将发生 trap 所对应的指令的 pc 保存在 mepc
  */
 static inline void w_mepc(reg_t x)
 {
@@ -70,6 +71,7 @@ static inline void w_mscratch(reg_t x)
 }
 
 /* Machine-mode interrupt vector */
+/* 保存发生异常时处理器需要跳转到的地址 */
 static inline void w_mtvec(reg_t x)
 {
 	asm volatile("csrw mtvec, %0" : : "r" (x));
@@ -92,6 +94,7 @@ static inline void w_mie(reg_t x)
 	asm volatile("csrw mie, %0" : : "r" (x));
 }
 
+/* trap 发生, hart 会设置该寄存器通知我们 trap 发生的原因 */
 static inline reg_t r_mcause()
 {
 	reg_t x;

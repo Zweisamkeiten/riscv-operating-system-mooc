@@ -7,3 +7,5 @@ tools/*
 code/os/02-memanagement/tags
 code/os/03-contextswitch/tags
 code/os/04-multitask/tags
+code/os/06-interrupts/tags
+code/os/05-traps/tags
