@@ -1,0 +1,204 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_OUTPUT_EXCMD	mixed	/number, pattern, mixed, or combineV2/
+!_TAG_OUTPUT_FILESEP	slash	/slash or backslash/
+!_TAG_OUTPUT_MODE	u-ctags	/u-ctags or e-ctags/
+!_TAG_PATTERN_LENGTH_LIMIT	96	/0 for no limit/
+!_TAG_PROC_CWD	/home/einsam/p/riscv-operating-system-mooc/code/os/exercise/12-hwtimer/	//
+!_TAG_PROGRAM_AUTHOR	Universal Ctags Team	//
+!_TAG_PROGRAM_NAME	Universal Ctags	/Derived from Exuberant Ctags/
+!_TAG_PROGRAM_URL	https://ctags.io/	/official site/
+!_TAG_PROGRAM_VERSION	5.9.0	/p5.9.20210905.0/
+%.o	Makefile	/^%.o : %.S$/;"	t
+%.o	Makefile	/^%.o : %.c$/;"	t
+.DEFAULT_GOAL	Makefile	/^.DEFAULT_GOAL := all$/;"	m
+BSS_END	mem.S	/^BSS_END: .word _bss_end$/;"	l
+BSS_START	mem.S	/^BSS_START: .word _bss_start$/;"	l
+CLINT_BASE	platform.h	/^#define CLINT_BASE /;"	d
+CLINT_MSIP	platform.h	/^#define CLINT_MSIP(/;"	d
+CLINT_MTIME	platform.h	/^#define CLINT_MTIME /;"	d
+CLINT_MTIMECMP	platform.h	/^#define CLINT_MTIMECMP(/;"	d
+CLINT_TIMEBASE_FREQ	platform.h	/^#define CLINT_TIMEBASE_FREQ /;"	d
+DATA_END	mem.S	/^DATA_END: .word _data_end$/;"	l
+DATA_START	mem.S	/^DATA_START: .word _data_start$/;"	l
+DELAY	user.c	/^#define DELAY /;"	d	file:
+DLL	uart.c	/^#define DLL /;"	d	file:
+DLM	uart.c	/^#define DLM /;"	d	file:
+FCR	uart.c	/^#define FCR /;"	d	file:
+HEAP_SIZE	mem.S	/^HEAP_SIZE: .word _heap_size$/;"	l
+HEAP_START	mem.S	/^HEAP_START: .word _heap_start$/;"	l
+IER	uart.c	/^#define IER /;"	d	file:
+ISR	uart.c	/^#define ISR /;"	d	file:
+LCR	uart.c	/^#define LCR /;"	d	file:
+LSR	uart.c	/^#define LSR /;"	d	file:
+LSR_RX_READY	uart.c	/^#define LSR_RX_READY /;"	d	file:
+LSR_TX_IDLE	uart.c	/^#define LSR_TX_IDLE /;"	d	file:
+MAXNUM_CPU	platform.h	/^#define MAXNUM_CPU /;"	d
+MAX_TASKS	sched.c	/^#define MAX_TASKS /;"	d	file:
+MCR	uart.c	/^#define MCR /;"	d	file:
+MIE_MEIE	riscv.h	/^#define MIE_MEIE /;"	d
+MIE_MSIE	riscv.h	/^#define MIE_MSIE /;"	d
+MIE_MTIE	riscv.h	/^#define MIE_MTIE /;"	d
+MSR	uart.c	/^#define MSR /;"	d	file:
+MSTATUS_MIE	riscv.h	/^#define MSTATUS_MIE /;"	d
+MSTATUS_MPIE	riscv.h	/^#define MSTATUS_MPIE /;"	d
+MSTATUS_MPP	riscv.h	/^#define MSTATUS_MPP /;"	d
+MSTATUS_SIE	riscv.h	/^#define MSTATUS_SIE /;"	d
+MSTATUS_SPIE	riscv.h	/^#define MSTATUS_SPIE /;"	d
+MSTATUS_SPP	riscv.h	/^#define MSTATUS_SPP /;"	d
+MSTATUS_UIE	riscv.h	/^#define MSTATUS_UIE /;"	d
+MSTATUS_UPIE	riscv.h	/^#define MSTATUS_UPIE /;"	d
+OBJS	Makefile	/^OBJS = $(SRCS_ASM:.S=.o)$/;"	m
+ORIGIN	os.ld	/^	ram   (wxa!ri) : ORIGIN = 0x80000000, LENGTH = 128M$/;"	s
+PAGE_LAST	page.c	/^#define PAGE_LAST /;"	d	file:
+PAGE_ORDER	page.c	/^#define PAGE_ORDER /;"	d	file:
+PAGE_SIZE	page.c	/^#define PAGE_SIZE /;"	d	file:
+PAGE_TAKEN	page.c	/^#define PAGE_TAKEN /;"	d	file:
+PLIC_BASE	platform.h	/^#define PLIC_BASE /;"	d
+PLIC_MCLAIM	platform.h	/^#define PLIC_MCLAIM(/;"	d
+PLIC_MCOMPLETE	platform.h	/^#define PLIC_MCOMPLETE(/;"	d
+PLIC_MENABLE	platform.h	/^#define PLIC_MENABLE(/;"	d
+PLIC_MTHRESHOLD	platform.h	/^#define PLIC_MTHRESHOLD(/;"	d
+PLIC_PENDING	platform.h	/^#define PLIC_PENDING(/;"	d
+PLIC_PRIORITY	platform.h	/^#define PLIC_PRIORITY(/;"	d
+Page	page.c	/^struct Page {$/;"	s	file:
+RHR	uart.c	/^#define RHR /;"	d	file:
+RODATA_END	mem.S	/^RODATA_END: .word _rodata_end$/;"	l
+RODATA_START	mem.S	/^RODATA_START: .word _rodata_start$/;"	l
+SPR	uart.c	/^#define SPR /;"	d	file:
+SRCS_ASM	Makefile	/^SRCS_ASM = \\$/;"	m
+SRCS_C	Makefile	/^SRCS_C = \\$/;"	m
+STACK_SIZE	sched.c	/^#define STACK_SIZE /;"	d	file:
+STACK_SIZE	start.S	/^	.equ	STACK_SIZE, 1024$/;"	d
+TEXT_END	mem.S	/^TEXT_END: .word _text_end$/;"	l
+TEXT_START	mem.S	/^TEXT_START: .word _text_start$/;"	l
+THR	uart.c	/^#define THR /;"	d	file:
+TIMER_INTERVAL	timer.c	/^#define TIMER_INTERVAL /;"	d	file:
+UART0	platform.h	/^#define UART0 /;"	d
+UART0_IRQ	platform.h	/^#define UART0_IRQ /;"	d
+UART_REG	uart.c	/^#define UART_REG(/;"	d	file:
+__OS_H__	os.h	/^#define __OS_H__$/;"	d
+__PLATFORM_H__	platform.h	/^#define __PLATFORM_H__$/;"	d
+__RISCV_H__	riscv.h	/^#define __RISCV_H__$/;"	d
+__TYPES_H__	types.h	/^#define __TYPES_H__$/;"	d
+_align_page	page.c	/^static inline uint32_t _align_page(uint32_t address)$/;"	f	typeref:typename:uint32_t	file:
+_alloc_end	page.c	/^static uint32_t _alloc_end = 0;$/;"	v	typeref:typename:uint32_t	file:
+_alloc_start	page.c	/^static uint32_t _alloc_start = 0;$/;"	v	typeref:typename:uint32_t	file:
+_bss_end	os.ld	/^		PROVIDE(_bss_end = .);$/;"	s
+_bss_start	os.ld	/^		PROVIDE(_bss_start = .);$/;"	s
+_clear	page.c	/^static inline void _clear(struct Page *page)$/;"	f	typeref:typename:void	file:
+_current	sched.c	/^static int _current = -1;$/;"	v	typeref:typename:int	file:
+_data_end	os.ld	/^		PROVIDE(_data_end = .);$/;"	s
+_data_start	os.ld	/^		PROVIDE(_data_start = .);$/;"	s
+_heap_size	os.ld	/^	PROVIDE(_heap_size = _memory_end - _heap_start);$/;"	s
+_heap_start	os.ld	/^	PROVIDE(_heap_start = _bss_end);$/;"	s
+_is_free	page.c	/^static inline int _is_free(struct Page *page)$/;"	f	typeref:typename:int	file:
+_is_last	page.c	/^static inline int _is_last(struct Page *page)$/;"	f	typeref:typename:int	file:
+_memory_end	os.ld	/^	PROVIDE(_memory_end = ORIGIN(ram) + LENGTH(ram));$/;"	s
+_memory_start	os.ld	/^	PROVIDE(_memory_start = ORIGIN(ram));$/;"	s
+_num_pages	page.c	/^static uint32_t _num_pages = 0;$/;"	v	typeref:typename:uint32_t	file:
+_rodata_end	os.ld	/^		PROVIDE(_rodata_end = .);$/;"	s
+_rodata_start	os.ld	/^		PROVIDE(_rodata_start = .);$/;"	s
+_set_flag	page.c	/^static inline void _set_flag(struct Page *page, uint8_t flags)$/;"	f	typeref:typename:void	file:
+_start	start.S	/^_start:$/;"	l
+_text_end	os.ld	/^		PROVIDE(_text_end = .);$/;"	s
+_tick	timer.c	/^static uint32_t _tick = 0;$/;"	v	typeref:typename:uint32_t	file:
+_top	sched.c	/^static int _top = 0;$/;"	v	typeref:typename:int	file:
+_vprintf	printf.c	/^static int _vprintf(const char* s, va_list vl)$/;"	f	typeref:typename:int	file:
+_vsnprintf	printf.c	/^static int _vsnprintf(char * out, size_t n, const char* s, va_list vl)$/;"	f	typeref:typename:int	file:
+a0	os.h	/^	reg_t a0;$/;"	m	struct:context	typeref:typename:reg_t
+a1	os.h	/^	reg_t a1;$/;"	m	struct:context	typeref:typename:reg_t
+a2	os.h	/^	reg_t a2;$/;"	m	struct:context	typeref:typename:reg_t
+a3	os.h	/^	reg_t a3;$/;"	m	struct:context	typeref:typename:reg_t
+a4	os.h	/^	reg_t a4;$/;"	m	struct:context	typeref:typename:reg_t
+a5	os.h	/^	reg_t a5;$/;"	m	struct:context	typeref:typename:reg_t
+a6	os.h	/^	reg_t a6;$/;"	m	struct:context	typeref:typename:reg_t
+a7	os.h	/^	reg_t a7;$/;"	m	struct:context	typeref:typename:reg_t
+all	Makefile	/^all: os.elf$/;"	t
+clean	Makefile	/^clean:$/;"	t
+code	Makefile	/^code: all$/;"	t
+context	os.h	/^struct context {$/;"	s
+ctx_tasks	sched.c	/^struct context ctx_tasks[MAX_TASKS];$/;"	v	typeref:struct:context[]
+debug	Makefile	/^debug: all$/;"	t
+external_interrupt_handler	trap.c	/^void external_interrupt_handler()$/;"	f	typeref:typename:void
+flags	page.c	/^	uint8_t flags;$/;"	m	struct:Page	typeref:typename:uint8_t	file:
+gp	os.h	/^	reg_t gp;$/;"	m	struct:context	typeref:typename:reg_t
+os.elf	Makefile	/^os.elf: ${OBJS}$/;"	t
+os_main	user.c	/^void os_main(void)$/;"	f	typeref:typename:void
+out_buf	printf.c	/^static char out_buf[1000]; \/\/ buffer for _vprintf()$/;"	v	typeref:typename:char[1000]	file:
+page_alloc	page.c	/^void *page_alloc(int npages)$/;"	f	typeref:typename:void *
+page_free	page.c	/^void page_free(void *p)$/;"	f	typeref:typename:void
+page_init	page.c	/^void page_init()$/;"	f	typeref:typename:void
+page_test	page.c	/^void page_test()$/;"	f	typeref:typename:void
+panic	printf.c	/^void panic(char *s)$/;"	f	typeref:typename:void
+park	start.S	/^park:$/;"	l
+plic_claim	plic.c	/^int plic_claim(void)$/;"	f	typeref:typename:int
+plic_complete	plic.c	/^void plic_complete(int irq)$/;"	f	typeref:typename:void
+plic_init	plic.c	/^void plic_init(void)$/;"	f	typeref:typename:void
+printf	printf.c	/^int printf(const char* s, ...)$/;"	f	typeref:typename:int
+r_mcause	riscv.h	/^static inline reg_t r_mcause()$/;"	f	typeref:typename:reg_t
+r_mepc	riscv.h	/^static inline reg_t r_mepc()$/;"	f	typeref:typename:reg_t
+r_mhartid	riscv.h	/^static inline reg_t r_mhartid()$/;"	f	typeref:typename:reg_t
+r_mie	riscv.h	/^static inline reg_t r_mie()$/;"	f	typeref:typename:reg_t
+r_mstatus	riscv.h	/^static inline reg_t r_mstatus()$/;"	f	typeref:typename:reg_t
+r_tp	riscv.h	/^static inline reg_t r_tp()$/;"	f	typeref:typename:reg_t
+ra	os.h	/^	reg_t ra;$/;"	m	struct:context	typeref:typename:reg_t
+reg_restore	entry.S	/^.macro reg_restore base$/;"	m
+reg_save	entry.S	/^.macro reg_save base$/;"	m
+reg_t	types.h	/^typedef uint32_t reg_t;$/;"	t	typeref:typename:uint32_t
+run	Makefile	/^run: all$/;"	t
+s0	os.h	/^	reg_t s0;$/;"	m	struct:context	typeref:typename:reg_t
+s1	os.h	/^	reg_t s1;$/;"	m	struct:context	typeref:typename:reg_t
+s10	os.h	/^	reg_t s10;$/;"	m	struct:context	typeref:typename:reg_t
+s11	os.h	/^	reg_t s11;$/;"	m	struct:context	typeref:typename:reg_t
+s2	os.h	/^	reg_t s2;$/;"	m	struct:context	typeref:typename:reg_t
+s3	os.h	/^	reg_t s3;$/;"	m	struct:context	typeref:typename:reg_t
+s4	os.h	/^	reg_t s4;$/;"	m	struct:context	typeref:typename:reg_t
+s5	os.h	/^	reg_t s5;$/;"	m	struct:context	typeref:typename:reg_t
+s6	os.h	/^	reg_t s6;$/;"	m	struct:context	typeref:typename:reg_t
+s7	os.h	/^	reg_t s7;$/;"	m	struct:context	typeref:typename:reg_t
+s8	os.h	/^	reg_t s8;$/;"	m	struct:context	typeref:typename:reg_t
+s9	os.h	/^	reg_t s9;$/;"	m	struct:context	typeref:typename:reg_t
+sched_init	sched.c	/^void sched_init()$/;"	f	typeref:typename:void
+schedule	sched.c	/^void schedule()$/;"	f	typeref:typename:void
+sp	os.h	/^	reg_t sp;$/;"	m	struct:context	typeref:typename:reg_t
+stacks	start.S	/^stacks:$/;"	l
+start_kernel	kernel.c	/^void start_kernel(void)$/;"	f	typeref:typename:void
+switch_to	entry.S	/^switch_to:$/;"	l
+t0	os.h	/^	reg_t t0;$/;"	m	struct:context	typeref:typename:reg_t
+t1	os.h	/^	reg_t t1;$/;"	m	struct:context	typeref:typename:reg_t
+t2	os.h	/^	reg_t t2;$/;"	m	struct:context	typeref:typename:reg_t
+t3	os.h	/^	reg_t t3;$/;"	m	struct:context	typeref:typename:reg_t
+t4	os.h	/^	reg_t t4;$/;"	m	struct:context	typeref:typename:reg_t
+t5	os.h	/^	reg_t t5;$/;"	m	struct:context	typeref:typename:reg_t
+t6	os.h	/^	reg_t t6;$/;"	m	struct:context	typeref:typename:reg_t
+task_create	sched.c	/^int task_create(void (*start_routin)(void))$/;"	f	typeref:typename:int
+task_delay	sched.c	/^void task_delay(volatile int count)$/;"	f	typeref:typename:void
+task_stack	sched.c	/^uint8_t task_stack[MAX_TASKS][STACK_SIZE];$/;"	v	typeref:typename:uint8_t[][]
+task_yield	sched.c	/^void task_yield()$/;"	f	typeref:typename:void
+timer_handler	timer.c	/^void timer_handler() $/;"	f	typeref:typename:void
+timer_init	timer.c	/^void timer_init()$/;"	f	typeref:typename:void
+timer_load	timer.c	/^void timer_load(int interval)$/;"	f	typeref:typename:void
+tp	os.h	/^	reg_t tp;$/;"	m	struct:context	typeref:typename:reg_t
+trap_handler	trap.c	/^reg_t trap_handler(reg_t epc, reg_t cause)$/;"	f	typeref:typename:reg_t
+trap_init	trap.c	/^void trap_init()$/;"	f	typeref:typename:void
+trap_test	trap.c	/^void trap_test()$/;"	f	typeref:typename:void
+trap_vector	entry.S	/^trap_vector:$/;"	l
+uart_getc	uart.c	/^int uart_getc(void)$/;"	f	typeref:typename:int
+uart_init	uart.c	/^void uart_init()$/;"	f	typeref:typename:void
+uart_isr	uart.c	/^void uart_isr(void)$/;"	f	typeref:typename:void
+uart_putc	uart.c	/^int uart_putc(char ch)$/;"	f	typeref:typename:int
+uart_puts	uart.c	/^void uart_puts(char *s)$/;"	f	typeref:typename:void
+uart_read_reg	uart.c	/^#define uart_read_reg(/;"	d	file:
+uart_write_reg	uart.c	/^#define uart_write_reg(/;"	d	file:
+uint16_t	types.h	/^typedef unsigned short uint16_t;$/;"	t	typeref:typename:unsigned short
+uint32_t	types.h	/^typedef unsigned int  uint32_t;$/;"	t	typeref:typename:unsigned int
+uint64_t	types.h	/^typedef unsigned long long uint64_t;$/;"	t	typeref:typename:unsigned long long
+uint8_t	types.h	/^typedef unsigned char uint8_t;$/;"	t	typeref:typename:unsigned char
+user_task0	user.c	/^void user_task0(void)$/;"	f	typeref:typename:void
+user_task1	user.c	/^void user_task1(void)$/;"	f	typeref:typename:void
+w_mepc	riscv.h	/^static inline void w_mepc(reg_t x)$/;"	f	typeref:typename:void
+w_mie	riscv.h	/^static inline void w_mie(reg_t x)$/;"	f	typeref:typename:void
+w_mscratch	riscv.h	/^static inline void w_mscratch(reg_t x)$/;"	f	typeref:typename:void
+w_mstatus	riscv.h	/^static inline void w_mstatus(reg_t x)$/;"	f	typeref:typename:void
+w_mtvec	riscv.h	/^static inline void w_mtvec(reg_t x)$/;"	f	typeref:typename:void

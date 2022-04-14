@@ -9,3 +9,5 @@ code/os/03-contextswitch/tags
 code/os/04-multitask/tags
 code/os/06-interrupts/tags
 code/os/05-traps/tags
+code/os/07-hwtimer/tags
+code/os/08-preemptive/tags
