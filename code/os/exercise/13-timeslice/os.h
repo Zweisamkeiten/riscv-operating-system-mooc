@@ -2,6 +2,7 @@
 #define __OS_H__
 
 #include "types.h"
+#include "riscv.h"
 #include "platform.h"
 
 #include <stddef.h>
@@ -53,17 +54,24 @@ struct context {
 	reg_t t4;
 	reg_t t5;
 	reg_t t6;
+	reg_t epc;
 };
 
 struct task {
 	uint8_t priority;
+	uint8_t timeslice;
 	char state;
 };
 
-extern void task_os();
 extern void task_go(int n);
-extern int  task_create(void (*task)(void* param), void *param, uint8_t priority);
+extern int  task_create(void (*task)(void* param), void *param, uint8_t priority, uint8_t timeslice);
 extern void task_delay(volatile int count);
 extern void task_exit(void);
+extern void task_yield();
+
+/* plic */
+extern int plic_claim(void);
+extern void plic_complete(int irq);
+
 
 #endif /* __OS_H__ */

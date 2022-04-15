@@ -83,14 +83,13 @@
 
 .text
 
-# void switch_to(struct context *next);
-# a0: pointer to the context of the next task
-.globl switch_to
+.globl trap_vector
+# the trap vector base address must always be aligned on a 4-byte boundary
 .align 4
-switch_to:
+trap_vector:
+	# save context(registers).
 	csrrw	t6, mscratch, t6	# swap t6 and mscratch
-	beqz	t6, 1f			# Notice: previous task may be NULL
-	reg_save t6			# save context of prev task
+	reg_save t6
 
 	# Save the actual t6 register, which we swapped into
 	# mscratch
@@ -98,9 +97,39 @@ switch_to:
 	csrr	t6, mscratch	# read t6 back from mscratch
 	sw	t6, 120(t5)	# save t6 with t5 as base
 
-1:
+	# save mepc to context of current task
+	csrr	a0, mepc
+	sw	a0, 124(t5)
+
+	# Restore the context pointer into mscratch
+	csrw	mscratch, t5
+
+	# call the C trap handler in trap.c
+	csrr	a0, mepc
+	csrr	a1, mcause
+	call	trap_handler
+
+	# trap_handler will return the return address via a0.
+	csrw	mepc, a0
+
+	# restore context(registers).
+	csrr	t6, mscratch
+	reg_restore t6
+
+	# return to whatever we were doing before trap.
+	mret
+
+# void switch_to(struct context *next);
+# a0: pointer to the context of the next task
+.globl switch_to
+.align 4
+switch_to:
 	# switch mscratch to point to the context of the next task
 	csrw	mscratch, a0
+
+	# set mepc to the pc of the next task
+	lw	a1, 124(a0)
+	csrw	mepc, a1
 
 	# Restore all GP registers
 	# Use t6 to point to the context of the new task
@@ -108,7 +137,7 @@ switch_to:
 	reg_restore t6
 
 	# Do actual context switching.
-	ret
+	mret
 
 .end
 

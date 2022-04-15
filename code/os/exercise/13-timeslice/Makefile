@@ -1,4 +1,4 @@
-include ../../common.mk
+include ../../../common.mk
 
 SRCS_ASM = \
 	start.S \
@@ -12,6 +12,9 @@ SRCS_C = \
 	page.c \
 	sched.c \
 	user.c \
+	trap.c \
+	timer.c \
+	plic.c \
 
 OBJS = $(SRCS_ASM:.S=.o)
 OBJS += $(SRCS_C:.c=.o)
@@ -41,7 +44,7 @@ debug: all
 	@echo "Press Ctrl-C and then input 'quit' to exit GDB and QEMU"
 	@echo "-------------------------------------------------------"
 	@${QEMU} ${QFLAGS} -kernel os.elf -s -S &
-	@${GDB} os.elf -q -x ../gdbinit
+	@${GDB} os.elf -q -x ../../gdbinit
 
 .PHONY : code
 code: all
