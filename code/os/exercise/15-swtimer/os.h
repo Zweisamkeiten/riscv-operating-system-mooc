@@ -74,12 +74,13 @@ extern int spin_lock(void);
 extern int spin_unlock(void);
 
 /* software timer */
-struct timer {
+typedef struct node {
 	void (*func)(void *arg);
 	void *arg;
 	uint32_t timeout_tick;
-};
-extern struct timer *timer_create(void (*handler)(void *arg), void *arg, uint32_t timeout);
-extern void timer_delete(struct timer *timer);
+	struct node* next;
+} timer;
+extern timer *timer_create(void (*handler)(void *arg), void *arg, uint32_t timeout);
+extern void timer_delete(timer *timer);
 
 #endif /* __OS_H__ */

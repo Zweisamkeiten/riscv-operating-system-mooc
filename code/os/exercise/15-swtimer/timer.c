@@ -8,7 +8,9 @@ extern void schedule(void);
 static uint32_t _tick = 0;
 
 #define MAX_TIMER 10
-static struct timer timer_list[MAX_TIMER];
+static timer timer_list[MAX_TIMER];
+static timer* list_start = &(timer_list[0]);
+static timer* list_end = &(timer_list[0]);
 
 /* load timer interval(in ticks) for next timer interrupt.*/
 void timer_load(int interval)
@@ -21,7 +23,7 @@ void timer_load(int interval)
 
 void timer_init()
 {
-	struct timer *t = &(timer_list[0]);
+	timer *t = list_start;
 	for (int i = 0; i < MAX_TIMER; i++) {
 		t->func = NULL;
 		t->arg = NULL;
@@ -37,7 +39,7 @@ void timer_init()
 	w_mie(r_mie() | MIE_MTIE);
 }
 
-struct timer *timer_create(void (*handler)(void *arg), void *arg, uint32_t timeout)
+timer *timer_create(void (*handler)(void *arg), void *arg, uint32_t timeout)
 {
 	if (NULL == handler || 0 == timeout)
 	{
@@ -46,36 +48,49 @@ struct timer *timer_create(void (*handler)(void *arg), void *arg, uint32_t timeo
 
 	spin_lock();
 
-	struct timer *t = &(timer_list[0]);
-	for (int i = 0; i < MAX_TIMER; i++)
+	timer *t = list_start;
+	if (list_end == NULL)
 	{
-		if (NULL == t->func) {
-			break;
-		}
-		t++;
-	}
-	// 暂不知道该判断的意义
-	if (NULL != t->func) {
-		spin_unlock();
 		return NULL;
 	}
-
-	t->func = handler;
-	t->arg = arg;
-	t->timeout_tick = _tick + timeout;
+	list_end->func = handler;
+	list_end->arg = arg;
+	list_end->timeout_tick = _tick + timeout;
+	while (t != list_end)
+	{
+		if (list_end->timeout_tick < t->timeout_tick && t == list_start)
+		{
+			list_end->next = list_start;
+			list_start = list_end;
+			break;
+		}
+		else if (t->next == NULL)
+		{
+			t->next = list_end;
+			break;
+		}
+		else if (list_end->timeout_tick < t->next->timeout_tick)
+		{
+			list_end->next = t->next;
+			t->next = list_end;
+			break;
+		}
+		t = t->next;
+	}
+	list_end++;
 
 	spin_unlock();
 
 	return t;
 }
 
-void timer_delete(struct timer *timer)
+void timer_delete(timer *thetimer)
 {
 	spin_lock();
 
-	struct timer *t = &(timer_list[0]);
+	timer *t = list_start;
 	for (int i = 0; i < MAX_TIMER; i++) {
-		if (t == timer) {
+		if (t == thetimer) {
 			t->func = NULL;
 			t->arg = NULL;
 			break;
@@ -88,8 +103,8 @@ void timer_delete(struct timer *timer)
 
 static inline void timer_check()
 {
-	struct timer *t = &(timer_list[0]);
-	for (int i = 0; i < MAX_TIMER; i++)
+	timer *t = list_start;
+	while (t != NULL)
 	{
 		if (NULL != t->func)
 		{
@@ -103,7 +118,7 @@ static inline void timer_check()
 				break;
 			}
 		}
-		t++;
+		t = t->next;
 	}
 }
 
