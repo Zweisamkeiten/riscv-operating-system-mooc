@@ -28,9 +28,12 @@ void start_kernel(void)
 
 	sched_init();
 
+
 	os_main();
 
 	schedule();
+
+	while (1) {}
 
 	uart_puts("Would not go here!\n");
 	while (1) {}; // stop here!

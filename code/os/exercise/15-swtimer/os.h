@@ -61,8 +61,12 @@ struct context {
 	reg_t pc; // offset: 31 *4 = 124
 };
 
+struct task {
+	char state;
+};
+
 extern int  task_create(void (*task)(void));
-extern void task_delay(volatile int count);
+extern void task_delay(uint32_t tick);
 extern void task_yield();
 
 /* plic */

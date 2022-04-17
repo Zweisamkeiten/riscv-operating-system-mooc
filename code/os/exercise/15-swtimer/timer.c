@@ -11,6 +11,8 @@ static uint32_t _tick = 0;
 static timer timer_list[MAX_TIMER];
 static timer* list_start = &(timer_list[0]);
 static timer* list_end = &(timer_list[0]);
+static timer* level1[MAX_TIMER/2];
+static timer* level2[MAX_TIMER/4];
 
 /* load timer interval(in ticks) for next timer interrupt.*/
 void timer_load(int interval)
@@ -24,6 +26,8 @@ void timer_load(int interval)
 void timer_init()
 {
 	timer *t = list_start;
+	level1[0] = list_start;
+	level2[0] = list_start;
 	for (int i = 0; i < MAX_TIMER; i++) {
 		t->func = NULL;
 		t->arg = NULL;
