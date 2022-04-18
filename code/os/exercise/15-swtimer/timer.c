@@ -14,6 +14,9 @@ static timer* list_end = &(timer_list[0]);
 static timer* level1[MAX_TIMER/2];
 static timer* level2[MAX_TIMER/4];
 
+static int _is_checked = 0; // 表示是否构建过跳表算法层数, 如新增或删除需要重新构建
+static void skip_list();
+
 /* load timer interval(in ticks) for next timer interrupt.*/
 void timer_load(int interval)
 {
@@ -26,8 +29,6 @@ void timer_load(int interval)
 void timer_init()
 {
 	timer *t = list_start;
-	level1[0] = list_start;
-	level2[0] = list_start;
 	for (int i = 0; i < MAX_TIMER; i++) {
 		t->func = NULL;
 		t->arg = NULL;
@@ -49,7 +50,7 @@ timer *timer_create(void (*handler)(void *arg), void *arg, uint32_t timeout)
 	{
 		return NULL;
 	}
-
+	
 	spin_lock();
 
 	timer *t = list_start;
@@ -82,6 +83,7 @@ timer *timer_create(void (*handler)(void *arg), void *arg, uint32_t timeout)
 		t = t->next;
 	}
 	list_end++;
+	_is_checked = 0;
 
 	spin_unlock();
 
@@ -97,6 +99,7 @@ void timer_delete(timer *thetimer)
 		if (t == thetimer) {
 			t->func = NULL;
 			t->arg = NULL;
+			_is_checked = 0;
 			break;
 		}
 		t++;
@@ -107,22 +110,60 @@ void timer_delete(timer *thetimer)
 
 static inline void timer_check()
 {
-	timer *t = list_start;
-	while (t != NULL)
+	if  (!_is_checked)
 	{
-		if (NULL != t->func)
+		_is_checked = 1;
+		skip_list();
+	}
+	timer *t = level2[0];
+	for (int i = 0; level2[i] != NULL && i < MAX_TIMER / 4; i++)
+	{
+		t = level2[i];
+		if (_tick >= t->timeout_tick)
 		{
-			if (_tick >= t->timeout_tick)
+			for (int j = i * 2; level1[j] != NULL && j < MAX_TIMER / 2; j++)
 			{
-				t->func(t->arg);
+				t = level1[j];
+				if (_tick >= t->timeout_tick)
+				{
+					while (t != NULL)
+					{
+						if (NULL != t->func)
+						{
+							if (_tick >= t->timeout_tick)
+							{
+								t->func(t->arg);
 
-				t->func = NULL;
-				t->arg = NULL;
+								t->func = NULL;
+								t->arg = NULL;
 
-				break;
+								return;
+							}
+						}
+						t = t->next;
+					}
+				}
 			}
 		}
+	}
+}
+
+static void skip_list()
+{
+	int count = 1;
+	timer *t = list_start;
+	level1[0] = list_start;
+	level2[0] = list_start;
+	while (t != NULL)
+	{
 		t = t->next;
+		if (count % 2 == 0)
+		{
+			level1[count / 2] = t;
+			if (count % 4 == 0)
+				level2[count / 4] = t;
+		}
+		count++;
 	}
 }
 
